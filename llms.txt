@@ -1,0 +1,22 @@
+# CheckNumber VK Number Checker API
+> Official integration context generated from the checked API expansion manifest.
+
+## Canonical resources
+- [vk](https://docs.checknumber.ai/vk-checker)
+
+## Contract facts
+- API base URL: https://api.checknumber.ai
+- Authentication: `X-API-Key` request header
+- API key environment variable: `CHECKNUMBER_API_KEY`
+- Processing mode: async_bulk
+- Current prices are not embedded; use the official pricing page.
+
+## Products
+- `vk`: Number Checker · input `phone` · fields: number, activated
+
+## Safety
+- Process only identifiers you are authorized to verify.
+- Do not expose API keys in browser code or commit secrets.
+- An undetermined result is not a confirmed negative.
+
+Last reviewed: 2026-08-18.

@@ -1,0 +1,52 @@
+{
+  "name": "VK Number Checker API",
+  "brand": "CheckNumber",
+  "slug": "vk-number-checker-api",
+  "repository": "checkernumber/vk-number-checker-api",
+  "description": "Asynchronous file-based VK checks.",
+  "official_site": "https://checknumber.ai",
+  "landing_page": "https://checknumber.ai/products/vk",
+  "canonical_docs": "https://docs.checknumber.ai/vk-checker",
+  "dashboard": "https://platform.checknumber.ai",
+  "base_url": "https://api.checknumber.ai",
+  "mode": "async",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key"
+  },
+  "endpoints": {
+    "create_task": {
+      "method": "POST",
+      "path": "/v1/tasks"
+    },
+    "get_task": {
+      "method": "POST",
+      "path": "/v1/gettasks"
+    },
+    "balance": {
+      "method": "GET",
+      "path": "/v1/balance"
+    }
+  },
+  "input": {
+    "file_format": "text file, one E.164 phone number per line according to task type"
+  },
+  "products": [
+    {
+      "task_type": "vk",
+      "name": "Number Checker",
+      "doc_slug": "vk-checker",
+      "input_kind": "phone",
+      "min_numbers": 1000,
+      "max_numbers": 10000000,
+      "result_fields": [
+        "number",
+        "activated"
+      ]
+    }
+  ],
+  "pricing_url": "https://checknumber.ai/pricing",
+  "maintainer": "CheckNumber",
+  "license": "MIT",
+  "last_reviewed": "2026-08-18"
+}

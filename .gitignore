@@ -1,0 +1,9 @@
+
+# Local secrets and generated output
+.env
+.env.*
+!.env.example
+results.zip
+result.zip
+*.log
+.DS_Store

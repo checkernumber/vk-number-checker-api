@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: VK Number Checker API
+  version: 1.0.0
+  description: >
+    Official CheckNumber asynchronous file-based API for the VK
+    product family. Upload an authorized list, poll the task, then download the
+    exported result file. Product limits and result columns are listed in product.json.
+  contact:
+    name: CheckNumber
+    url: https://checknumber.ai/products/vk
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+externalDocs:
+  description: CheckNumber VK API documentation
+  url: https://docs.checknumber.ai/vk-checker
+servers:
+  - url: https://api.checknumber.ai
+security:
+  - ApiKeyAuth: []
+paths:
+  /v1/tasks:
+    post:
+      summary: Submit an asynchronous VK task
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, task_type]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Text file with one identifier per line. Use E.164 phones or valid emails as documented.
+                task_type:
+                  type: string
+                  enum: [vk]
+      responses:
+        '200':
+          description: Task accepted by deployments using the legacy success status
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Task' }
+        '202':
+          description: Task accepted
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Task' }
+        '400': { description: Invalid file, task type, or row count }
+        '401': { description: Missing or invalid API key }
+        '402': { description: Insufficient balance }
+        '413': { description: Uploaded file is too large }
+        '500': { description: Internal server error }
+  /v1/gettasks:
+    post:
+      summary: Check the status of an asynchronous task
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [task_id]
+              properties:
+                task_id: { type: string }
+      responses:
+        '200':
+          description: Current task state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Task' }
+        '401': { description: Missing or invalid API key }
+        '404': { description: Task not found }
+        '500': { description: Internal server error }
+  /v1/balance:
+    get:
+      summary: Get account balance
+      responses:
+        '200':
+          description: Current balance
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Balance' }
+        '401': { description: Missing or invalid API key }
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    Balance:
+      type: object
+      required: [balance]
+      properties:
+        balance: { type: number, format: double }
+    Task:
+      type: object
+      properties:
+        task_id: { type: string }
+        user_id: { type: string }
+        status:
+          type: string
+          enum: [pending, processing, exported, failed]
+        total: { type: integer }
+        success: { type: integer }
+        failure: { type: integer }
+        result_url: { type: string, format: uri }
+        message: { type: string }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
