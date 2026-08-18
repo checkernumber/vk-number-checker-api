@@ -32,7 +32,7 @@ curl -X POST "https://api.checknumber.ai/v1/gettasks" -H "X-API-Key: ${CHECKNUMB
 
 ## Runnable examples
 
-Eight self-contained examples are provided under `examples/`: Python, Node.js, Go, Java, C#, PHP, and Shell each implement the full submit → poll → download workflow with HTTP error handling; browser JavaScript submits through a same-origin proxy contract and never contains an API key. Set the server-side API-key environment variable before running them.
+Seven self-contained examples are provided under `examples/`: Python, Node.js, Go, Java, C#, PHP, and Shell each implement the full submit → poll → download workflow with HTTP error handling. Set the server-side API-key environment variable before running them.
 
 ## Official resources
 
